@@ -1,0 +1,39 @@
+{
+  "name": "vite-plugin-frontmatter-markdown",
+  "version": "0.1.0",
+  "description": "Import frontmatter markdown files in vite",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc -w -p .",
+    "build": "rm -rf dist && tsc -p .",
+    "prepublishOnly": "yarn build"
+  },
+  "keywords": [
+    "vite",
+    "frontmatter",
+    "markdown",
+    "react",
+    "vue"
+  ],
+  "author": "Kengo Hamasaki <k.hamasaki@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmsk/vite-plugin-frontmatter-markdown.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hmsk/vite-plugin-frontmatter-markdown/issues"
+  },
+  "homepage": "https://github.com/hmsk/vite-plugin-frontmatter-markdown/tree/master/#readme",
+  "dependencies": {},
+  "peerDependencies": {
+    "vite": ">=1.0.0-beta.1"
+  },
+  "devDependencies": {
+    "typescript": "3.9.6",
+    "vite": "1.0.0-beta.11"
+  }
+}
