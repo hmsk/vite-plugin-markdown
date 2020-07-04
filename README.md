@@ -1,7 +1,5 @@
 # vite-plugin-frontmatter-markdown
 
-What this repo makes real:
-
 ```js
 const fmPlugin = require('vite-frontmatter-markdown')
 
@@ -12,18 +10,22 @@ module.exports = {
 
 ```vue
 <template>
-  <div>
-    <the-doc />
-  </div>
+  <article>
+    <h1>{{ attributes.title }}</h1>
+    <p>{{ attributes.description }}</p>
+    <div v-html="html" />
+  </article>
 </template>
 
 <script>
-import { vueComponent as theDoc } from './contents/the-doc.md';
+import { attributes, html } from './contents/the-doc.md';
 
 export default {
-  components: {
-    theDoc,
-  },
+  data () {
+    return {
+      attributes, html
+    }
+  }
 };
 </script>
 ```
