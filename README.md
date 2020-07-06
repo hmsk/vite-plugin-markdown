@@ -1,14 +1,12 @@
 # vite-plugin-frontmatter-markdown
 
+[![npm](https://img.shields.io/npm/v/vite-plugin-frontmatter-markdown.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-frontmatter-markdown)
+
+## What this plugin enables you to write:
+
+### In Vue
+
 ```js
-const fmPlugin = require('vite-frontmatter-markdown')
-
-module.exports = {
-  plugins: [fmPlugin(options)]
-}
-```
-
-```vue
 <template>
   <article>
     <h1>{{ attributes.title }}</h1>
@@ -28,4 +26,21 @@ export default {
   }
 };
 </script>
+```
+
+## Config
+
+```js
+const fmPlugin = require('vite-frontmatter-markdown')
+
+module.exports = {
+  plugins: [fmPlugin(options)]
+}
+```
+
+### Options
+
+```ts
+markdown?: (body: string) => string
+markdownIt?: MarkdownIt | MarkdownIt.Options
 ```
