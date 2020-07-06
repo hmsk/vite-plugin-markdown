@@ -3,8 +3,8 @@ import MarkdownIt from 'markdown-it'
 import { Transform } from 'vite'
 
 export interface PluginOptions {
-  markdownIt?: MarkdownIt | MarkdownIt.Options
   markdown?: (body: string) => string
+  markdownIt?: MarkdownIt | MarkdownIt.Options
 }
 
 const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body: string) => string } => {
