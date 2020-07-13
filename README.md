@@ -8,20 +8,32 @@
 
 ```js
 <template>
-  <article>
-    <h1>{{ attributes.title }}</h1>
-    <p>{{ attributes.description }}</p>
-    <div v-html="html" />
-  </article>
+  <div>
+    <nav>
+      <ul>
+        <li
+          v-for='(heading, i) in toc'
+          :key='i'
+          class=`heading-${heading.level}`>
+          {{ heading.text }}
+        </li>
+      </ul>
+    </nav>
+    <article>
+      <h1>{{ attributes.title }}</h1>
+      <p>{{ attributes.description }}</p>
+      <div v-html="html" />
+    </article>
+  </div>
 </template>
 
 <script>
-import { attributes, html } from './contents/the-doc.md';
+import { attributes, html, toc } from './contents/the-doc.md';
 
 export default {
   data () {
     return {
-      attributes, html
+      attributes, html, toc
     }
   }
 };
