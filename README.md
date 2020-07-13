@@ -1,6 +1,6 @@
 # vite-plugin-frontmatter-markdown
 
-[![npm](https://img.shields.io/npm/v/vite-plugin-frontmatter-markdown/next.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-frontmatter-markdown)
+[![npm](https://img.shields.io/npm/v/vite-plugin-frontmatter-markdown.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-frontmatter-markdown)
 
 ## What this plugin enables you to write:
 
