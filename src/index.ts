@@ -2,7 +2,13 @@ import Frontmatter from 'front-matter'
 import MarkdownIt from 'markdown-it'
 import { Transform } from 'vite'
 
+export enum Mode {
+  TOC = "toc",
+  HTML = "html"
+}
+
 export interface PluginOptions {
+  mode?: Mode[]
   markdown?: (body: string) => string
   markdownIt?: MarkdownIt | MarkdownIt.Options
 }
