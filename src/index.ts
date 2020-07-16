@@ -26,18 +26,34 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
   return MarkdownIt({ html: true })
 }
 
+class ExportedContent {
+  content: string = ''
+
+  addProperty (key: string, value: string | object): void {
+    this.content += `${key}: ${JSON.stringify(value)},
+    `
+  }
+
+  export (): string {
+    return `{ ${this.content} }`
+  }
+}
+
 const transform = (options: PluginOptions): Transform => {
   return {
     test: ({ path }) => path.endsWith('.md'),
     transform: ({ code }) => {
-      const fm = Frontmatter(code)
+      const content = new ExportedContent()
+      const fm = Frontmatter<object>(code)
+      content.addProperty('attributes', fm.attributes)
 
-      const html = markdownCompiler(options).render(fm.body)
+      if (options.mode?.includes(Mode.HTML)) {
+        const html = markdownCompiler(options).render(fm.body)
+        content.addProperty('html', html)
+      }
+
       return {
-        code: `const things = {
-                attributes: ${JSON.stringify(fm.attributes)},
-                html: ${JSON.stringify(html)}
-              }
+        code: `const things = ${content.export()}
               export default things
               `
       }
