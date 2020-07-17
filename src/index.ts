@@ -1,5 +1,6 @@
 import Frontmatter from 'front-matter'
 import MarkdownIt from 'markdown-it'
+import { parse, HTMLElement } from 'node-html-parser'
 import { Transform } from 'vite'
 
 export enum Mode {
@@ -47,9 +48,23 @@ const transform = (options: PluginOptions): Transform => {
       const fm = Frontmatter<object>(code)
       content.addProperty('attributes', fm.attributes)
 
+      const html = markdownCompiler(options).render(fm.body)
       if (options.mode?.includes(Mode.HTML)) {
-        const html = markdownCompiler(options).render(fm.body)
         content.addProperty('html', html)
+      }
+
+      if (options.mode?.includes(Mode.TOC)) {
+        const root = parse(html)
+        const indicies = root.childNodes.filter(
+          childNode => childNode instanceof HTMLElement && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(childNode.tagName)
+        ) as HTMLElement[]
+
+        const toc: { level: string; content: string }[] = indicies.map(index => ({
+          level: index.tagName.replace('h', ''),
+          content: index.childNodes.toString()
+        }))
+
+        content.addProperty('toc', toc)
       }
 
       return {
