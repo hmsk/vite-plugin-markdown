@@ -53,6 +53,7 @@ module.exports = {
 ### Options
 
 ```ts
+mode?: 'html' | 'toc'
 markdown?: (body: string) => string
 markdownIt?: MarkdownIt | MarkdownIt.Options
 ```
