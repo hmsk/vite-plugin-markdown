@@ -24,13 +24,19 @@
       <p>{{ attributes.description }}</p>
       <div v-html="html" />
     </article>
+    <article>
+      <markdown-content />
+    </article>
   </div>
 </template>
 
 <script>
-import { attributes, html, toc } from './contents/the-doc.md';
+import { attributes, html, toc, VueComponent } from './contents/the-doc.md';
 
 export default {
+  components: {
+    MarkdownContent: VueComponent
+  },
   data () {
     return {
       attributes, html, toc
@@ -53,7 +59,7 @@ module.exports = {
 ### Options
 
 ```ts
-mode?: 'html' | 'toc'
+mode?: 'html' | 'toc' | 'vue'
 markdown?: (body: string) => string
 markdownIt?: MarkdownIt | MarkdownIt.Options
 ```

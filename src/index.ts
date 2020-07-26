@@ -2,10 +2,12 @@ import Frontmatter from 'front-matter'
 import MarkdownIt from 'markdown-it'
 import { parse, HTMLElement } from 'node-html-parser'
 import { Transform } from 'vite'
+import { compileTemplate } from '@vue/compiler-sfc'
 
 export enum Mode {
   TOC = "toc",
-  HTML = "html"
+  HTML = "html",
+  VUE = "vue"
 }
 
 export interface PluginOptions {
@@ -28,28 +30,33 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
 }
 
 class ExportedContent {
-  #content: string = ''
+  #exports: string = ''
+  #contextCode: string = ''
 
-  addProperty (key: string, value: string | object): void {
-    this.#content += `export const ${key} = ${JSON.stringify(value)}\n`
+  addProperty (key: string, value: string | object, contextCode?: string): void {
+    const exportedContent = typeof value === 'string' ? value : JSON.stringify(value)
+    this.#exports += `export const ${key} = ${exportedContent}\n`
+    if (contextCode) {
+      this.#contextCode += `${contextCode}\n`
+    }
   }
 
   export (): string {
-    return this.#content
+    return [this.#contextCode, this.#exports].join('\n')
   }
 }
 
 const transform = (options: PluginOptions): Transform => {
   return {
     test: ({ path }) => path.endsWith('.md'),
-    transform: ({ code }) => {
+    transform: ({ code, path }) => {
       const content = new ExportedContent()
       const fm = Frontmatter<object>(code)
       content.addProperty('attributes', fm.attributes)
 
       const html = markdownCompiler(options).render(fm.body)
       if (options.mode?.includes(Mode.HTML)) {
-        content.addProperty('html', html)
+        content.addProperty('html', JSON.stringify(html))
       }
 
       if (options.mode?.includes(Mode.TOC)) {
@@ -64,6 +71,12 @@ const transform = (options: PluginOptions): Transform => {
         }))
 
         content.addProperty('toc', toc)
+      }
+
+      if (options.mode?.includes(Mode.VUE)) {
+        const { code: compiledVueCode } = compileTemplate({ source: html, filename: path })
+        const vueCode = compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(')
+        content.addProperty('VueComponent', '{ render: vueRender }', vueCode)
       }
 
       return {

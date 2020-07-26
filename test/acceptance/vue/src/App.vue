@@ -12,16 +12,19 @@
   {{ html }}
   <h1>TOC</h1>
   {{ toc }}
+  <h1>Vue Component</h1>
+  <content-markdown />
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import { attributes, html, toc }  from './assets/content.md'
+import { attributes, html, toc, VueComponent }  from './assets/content.md'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    ContentMarkdown: VueComponent
   },
   data () {
     return {
