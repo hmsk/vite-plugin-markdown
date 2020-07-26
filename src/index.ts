@@ -28,15 +28,14 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
 }
 
 class ExportedContent {
-  content: string = ''
+  #content: string = ''
 
   addProperty (key: string, value: string | object): void {
-    this.content += `${key}: ${JSON.stringify(value)},
-    `
+    this.#content += `export const ${key} = ${JSON.stringify(value)}\n`
   }
 
   export (): string {
-    return `{ ${this.content} }`
+    return this.#content
   }
 }
 
@@ -68,9 +67,7 @@ const transform = (options: PluginOptions): Transform => {
       }
 
       return {
-        code: `const things = ${content.export()}
-              export default things
-              `
+        code: content.export()
       }
     }
   }
