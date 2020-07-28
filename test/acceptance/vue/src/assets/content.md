@@ -13,3 +13,13 @@ tags:
 ## I'm Vue
 
 Echo
+
+```js
+{{ something.value }}
+
+getSomething().then((response) => {
+  const result = parse(response)
+})
+```
+
+`{{ something.value }}`

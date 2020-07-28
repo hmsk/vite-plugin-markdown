@@ -1,6 +1,6 @@
 import Frontmatter from 'front-matter'
 import MarkdownIt from 'markdown-it'
-import { parse, HTMLElement } from 'node-html-parser'
+import { parse, HTMLElement, Node } from 'node-html-parser'
 import { Transform } from 'vite'
 import { compileTemplate } from '@vue/compiler-sfc'
 
@@ -74,7 +74,27 @@ const transform = (options: PluginOptions): Transform => {
       }
 
       if (options.mode?.includes(Mode.VUE)) {
-        const { code: compiledVueCode } = compileTemplate({ source: html, filename: path })
+        const root = parse(html, { pre: true })
+
+        // Top-level <pre> tags become <pre v-pre>
+        root.childNodes.forEach(childNode => {
+          if (childNode instanceof HTMLElement && ['pre', 'code'].includes(childNode.tagName)) {
+            (childNode as HTMLElement).setAttribute('v-pre', 'true')
+          }
+        })
+
+        // Any <code> tag becomes <code v-pre> excepting under `<pre>`
+        const markCodeAsPre = (node: Node): void => {
+          if (node instanceof HTMLElement) {
+            if (node.tagName === 'code') node.setAttribute('v-pre', 'true')
+            if ((node as HTMLElement).childNodes.length > 0) {
+              node.childNodes.forEach(markCodeAsPre)
+            }
+          }
+        }
+        root.childNodes.forEach(markCodeAsPre)
+
+        const { code: compiledVueCode } = compileTemplate({ source: root.toString(), filename: path })
         const vueCode = compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(')
         content.addProperty('VueComponent', '{ render: vueRender }', vueCode)
       }
