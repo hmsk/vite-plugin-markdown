@@ -74,7 +74,7 @@ const transform = (options: PluginOptions): Transform => {
       }
 
       if (options.mode?.includes(Mode.VUE)) {
-        const root = parse(html, { pre: true })
+        const root = parse(html, { pre: true, script: true, comment: true, style: true })
 
         // Top-level <pre> tags become <pre v-pre>
         root.childNodes.forEach(childNode => {
