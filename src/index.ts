@@ -7,6 +7,7 @@ import { compileTemplate } from '@vue/compiler-sfc'
 export enum Mode {
   TOC = "toc",
   HTML = "html",
+  REACT = "react",
   VUE = "vue"
 }
 
@@ -26,7 +27,7 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
   } else if (options.markdown) {
     return { render: options.markdown }
   }
-  return MarkdownIt({ html: true })
+  return MarkdownIt({ html: true, xhtmlOut: options.mode?.includes(Mode.REACT) })
 }
 
 class ExportedContent {
@@ -71,6 +72,25 @@ const transform = (options: PluginOptions): Transform => {
         }))
 
         content.addProperty('toc', toc)
+      }
+
+      if (options.mode?.includes(Mode.REACT)) {
+        const reactCode = `
+          const markdown =
+            <div>
+              ${html}
+            </div>
+        `
+        const compiledReactCode = `
+          function (props) {
+            Object.keys(props).forEach(function (key) {
+              this[key] = props[key]
+            })
+            ${require('@babel/core').transformSync(reactCode, { ast: false, presets: ['@babel/preset-react'] }).code}
+            return markdown
+          }
+        `
+        content.addProperty('ReactComponent', compiledReactCode, 'import React from "react"')
       }
 
       if (options.mode?.includes(Mode.VUE)) {

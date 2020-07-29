@@ -1,0 +1,18 @@
+{
+  "name": "react",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@pika/react": "^16.13.1",
+    "@pika/react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "7.10.4",
+    "vite": "1.0.0-rc.1",
+    "vite-plugin-frontmatter-markdown": "file:../../..",
+    "vite-plugin-react": "3.0.0"
+  }
+}
