@@ -3,6 +3,8 @@ import MarkdownIt from 'markdown-it'
 import { parse, HTMLElement, Node } from 'node-html-parser'
 import { Transform } from 'vite'
 import { compileTemplate } from '@vue/compiler-sfc'
+import { parseDOM, DomUtils } from 'htmlparser2'
+import { Element, Node as DomHandlerNode } from 'domhandler'
 
 export enum Mode {
   TOC = "toc",
@@ -75,10 +77,34 @@ const transform = (options: PluginOptions): Transform => {
       }
 
       if (options.mode?.includes(Mode.REACT)) {
+        const root = parseDOM(html)
+
+        const markCodeAsPre = (node: DomHandlerNode): void => {
+          if (node instanceof Element) {
+            if (['pre', 'code'].includes(node.tagName) && node.attribs?.class) {
+              node.attribs.className = node.attribs.class
+              delete node.attribs.class
+            }
+
+            if (node.tagName === 'code') {
+              const codeContent = DomUtils.getInnerHTML(node)
+              node.attribs.dangerouslySetInnerHTML = `vfm{{ __html: \`${codeContent}\`}}vfm`
+              node.childNodes = []
+            }
+
+            if (node.childNodes.length > 0) {
+              node.childNodes.forEach(markCodeAsPre)
+            }
+          }
+        }
+        root.forEach(markCodeAsPre)
+
+        const h = DomUtils.getOuterHTML(root).replace(/\"vfm{{/g, '{{').replace(/}}vfm\"/g, '}}')
+
         const reactCode = `
           const markdown =
             <div>
-              ${html}
+              ${h}
             </div>
         `
         const compiledReactCode = `
