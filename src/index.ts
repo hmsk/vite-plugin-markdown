@@ -1,8 +1,6 @@
 import Frontmatter from 'front-matter'
 import MarkdownIt from 'markdown-it'
-import { parse, HTMLElement, Node } from 'node-html-parser'
 import { Transform } from 'vite'
-import { compileTemplate } from '@vue/compiler-sfc'
 import { parseDOM, DomUtils } from 'htmlparser2'
 import { Element, Node as DomHandlerNode } from 'domhandler'
 
@@ -63,14 +61,14 @@ const transform = (options: PluginOptions): Transform => {
       }
 
       if (options.mode?.includes(Mode.TOC)) {
-        const root = parse(html)
-        const indicies = root.childNodes.filter(
-          childNode => childNode instanceof HTMLElement && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(childNode.tagName)
-        ) as HTMLElement[]
+        const root = parseDOM(html)
+        const indicies = root.filter(
+          rootSibling => rootSibling instanceof Element && ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(rootSibling.tagName)
+        ) as Element[]
 
         const toc: { level: string; content: string }[] = indicies.map(index => ({
           level: index.tagName.replace('h', ''),
-          content: index.childNodes.toString()
+          content: DomUtils.getInnerHTML(index)
         }))
 
         content.addProperty('toc', toc)
@@ -120,27 +118,27 @@ const transform = (options: PluginOptions): Transform => {
       }
 
       if (options.mode?.includes(Mode.VUE)) {
-        const root = parse(html, { pre: true, script: true, comment: true, style: true })
+        const root = parseDOM(html)
 
         // Top-level <pre> tags become <pre v-pre>
-        root.childNodes.forEach(childNode => {
-          if (childNode instanceof HTMLElement && ['pre', 'code'].includes(childNode.tagName)) {
-            (childNode as HTMLElement).setAttribute('v-pre', 'true')
+        root.forEach((node: DomHandlerNode) => {
+          if (node instanceof Element) {
+            if (['pre', 'code'].includes(node.tagName)) {
+              node.attribs['v-pre'] = 'true'
+            }
           }
         })
 
         // Any <code> tag becomes <code v-pre> excepting under `<pre>`
-        const markCodeAsPre = (node: Node): void => {
-          if (node instanceof HTMLElement) {
-            if (node.tagName === 'code') node.setAttribute('v-pre', 'true')
-            if ((node as HTMLElement).childNodes.length > 0) {
-              node.childNodes.forEach(markCodeAsPre)
-            }
+        const markCodeAsPre = (node: DomHandlerNode): void => {
+          if (node instanceof Element) {
+            if (node.tagName === 'code') node.attribs['v-pre'] = 'true'
+            if (node.childNodes.length > 0) node.childNodes.forEach(markCodeAsPre)
           }
         }
-        root.childNodes.forEach(markCodeAsPre)
+        root.forEach(markCodeAsPre)
 
-        const { code: compiledVueCode } = compileTemplate({ source: root.toString(), filename: path })
+        const { code: compiledVueCode } = require('@vue/compiler-sfc').compileTemplate({ source: DomUtils.getOuterHTML(root), filename: path })
         const vueCode = compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(')
         content.addProperty('VueComponent', '{ render: vueRender }', vueCode)
       }
