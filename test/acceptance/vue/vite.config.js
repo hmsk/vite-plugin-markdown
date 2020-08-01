@@ -1,5 +1,5 @@
 // @ts-check
-const fmPlugin = require('vite-plugin-frontmatter-markdown')
+const fmPlugin = require('vite-plugin-markdown')
 
 /**
  * @type { import('vite').UserConfig }

@@ -1,22 +1,22 @@
-# vite-plugin-frontmatter-markdown
+# vite-plugin-markdown
 
-[![npm](https://img.shields.io/npm/v/vite-plugin-frontmatter-markdown.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-frontmatter-markdown)
+[![npm](https://img.shields.io/npm/v/vite-plugin-markdown.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-markdown)
 
 A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project.
 
 ## Setup
 
 ```
-npx i -D vite-plugin-frontmatter-markdown
+npx i -D vite-plugin-markdown
 ```
 
 ### Config
 
 ```js
-const fmPlugin = require('vite-plugin-frontmatter-markdown')
+const mdPlugin = require('vite-plugin-markdown')
 
 module.exports = {
-  plugins: [fmPlugin(options)]
+  plugins: [mdPlugin(options)]
 }
 ```
 
@@ -31,7 +31,7 @@ markdownIt?: MarkdownIt | MarkdownIt.Options
 Enum for `mode` is provided as `Mode`
 
 ```ts
-import { Mode } from 'vite-plugin-frontmatter-markdown'
+import { Mode } from 'vite-plugin-markdown'
 
 console.log(Mode.HTML) //=> 'html'
 console.log(Mode.TOC) //=> 'toc'

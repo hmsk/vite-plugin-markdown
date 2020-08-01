@@ -11,8 +11,8 @@
   },
   "devDependencies": {
     "@babel/preset-react": "7.10.4",
-    "vite": "1.0.0-rc.1",
-    "vite-plugin-frontmatter-markdown": "file:../../..",
-    "vite-plugin-react": "3.0.0"
+    "vite": "^1.0.0-rc.4",
+    "vite-plugin-markdown": "file:../../..",
+    "vite-plugin-react": "3.0.2"
   }
 }

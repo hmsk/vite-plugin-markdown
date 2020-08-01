@@ -1,6 +1,6 @@
 // @ts-check
 const reactPlugin = require('vite-plugin-react')
-const mdPlugin = require('vite-plugin-frontmatter-markdown')
+const mdPlugin = require('vite-plugin-markdown')
 
 /**
  * @type { import('vite').UserConfig }
