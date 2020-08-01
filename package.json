@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-frontmatter-markdown",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "description": "Import frontmatter markdown files in vite",
   "main": "dist/index.js",
   "files": [
