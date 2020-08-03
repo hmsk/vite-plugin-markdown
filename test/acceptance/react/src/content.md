@@ -8,3 +8,7 @@ Hello `<a>something</a>` okay
 const a = {};
 Object.keys(a).forEach(key => something);
 ```
+
+## Link to the repo
+
+<LinkToRepository color="#55d2fa">Open Repository</LinkToRepository>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import { html, toc, ReactComponent } from './content.md'
+import LinkToRepository from './LinkToRepository'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,7 +33,7 @@ function App() {
         <h2>ToC</h2>
         {toc.map((h,i) => <li key={i}>{h.level} - {h.content}</li>)}
         <h2>ReactComponent</h2>
-        <ReactComponent />
+        <ReactComponent LinkToRepository={LinkToRepository} />
       </main>
     </div>
   )
