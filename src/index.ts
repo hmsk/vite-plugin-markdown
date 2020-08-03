@@ -75,10 +75,14 @@ const transform = (options: PluginOptions): Transform => {
       }
 
       if (options.mode?.includes(Mode.REACT)) {
-        const root = parseDOM(html)
+        const root = parseDOM(html, { lowerCaseTags: false })
+        const subComponentNamespace = 'SubReactComponent'
 
         const markCodeAsPre = (node: DomHandlerNode): void => {
           if (node instanceof Element) {
+            if (node.tagName.match(/^[A-Z].+/)) {
+              node.tagName = `${subComponentNamespace}.${node.tagName}`
+            }
             if (['pre', 'code'].includes(node.tagName) && node.attribs?.class) {
               node.attribs.className = node.attribs.class
               delete node.attribs.class
@@ -108,13 +112,13 @@ const transform = (options: PluginOptions): Transform => {
         const compiledReactCode = `
           function (props) {
             Object.keys(props).forEach(function (key) {
-              this[key] = props[key]
+              SubReactComponent[key] = props[key]
             })
             ${require('@babel/core').transformSync(reactCode, { ast: false, presets: ['@babel/preset-react'] }).code}
             return markdown
           }
         `
-        content.addProperty('ReactComponent', compiledReactCode, 'import React from "react"')
+        content.addProperty('ReactComponent', compiledReactCode, `import React from "react"\nconst ${subComponentNamespace} = {}`)
       }
 
       if (options.mode?.includes(Mode.VUE)) {
