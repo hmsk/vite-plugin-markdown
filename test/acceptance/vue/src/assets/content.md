@@ -23,3 +23,7 @@ getSomething().then((response) => {
 ```
 
 `{{ something.value }}`
+
+## This section has a custom element
+
+<link-to-repository color="#37ae70">See Repository</link-to-repository>

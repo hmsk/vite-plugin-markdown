@@ -181,7 +181,7 @@ import MyComponent from './my-component.vue'
 export default {
   components: {
     MarkdownContent: {
-      extends: VueComponent,
+      render: { VueComponent.render },
       components: { MyComponent }
     }
   }
