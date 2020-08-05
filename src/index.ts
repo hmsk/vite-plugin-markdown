@@ -31,19 +31,19 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
 }
 
 class ExportedContent {
-  #exports: string = ''
+  #exports: string[] = []
   #contextCode: string = ''
 
-  addProperty (key: string, value: string | object, contextCode?: string): void {
-    const exportedContent = typeof value === 'string' ? value : JSON.stringify(value)
-    this.#exports += `export const ${key} = ${exportedContent}\n`
-    if (contextCode) {
-      this.#contextCode += `${contextCode}\n`
-    }
+  addContext (contextCode: string): void {
+    this.#contextCode += `${contextCode}\n`
+  }
+
+  addExporting (exported: string): void {
+    this.#exports.push(exported)
   }
 
   export (): string {
-    return [this.#contextCode, this.#exports].join('\n')
+    return [this.#contextCode, `export { ${this.#exports.join(', ')} }`].join('\n')
   }
 }
 
@@ -53,11 +53,13 @@ const transform = (options: PluginOptions): Transform => {
     transform: ({ code, path }) => {
       const content = new ExportedContent()
       const fm = Frontmatter<object>(code)
-      content.addProperty('attributes', fm.attributes)
+      content.addContext(`const attributes = ${JSON.stringify(fm.attributes)}`)
+      content.addExporting('attributes')
 
       const html = markdownCompiler(options).render(fm.body)
       if (options.mode?.includes(Mode.HTML)) {
-        content.addProperty('html', JSON.stringify(html))
+        content.addContext(`const html = ${JSON.stringify(html)}`)
+        content.addExporting('html')
       }
 
       if (options.mode?.includes(Mode.TOC)) {
@@ -71,7 +73,8 @@ const transform = (options: PluginOptions): Transform => {
           content: DomUtils.getInnerHTML(index)
         }))
 
-        content.addProperty('toc', toc)
+        content.addContext(`const toc = ${JSON.stringify(toc)}`)
+        content.addExporting('toc')
       }
 
       if (options.mode?.includes(Mode.REACT)) {
@@ -118,7 +121,8 @@ const transform = (options: PluginOptions): Transform => {
             return markdown
           }
         `
-        content.addProperty('ReactComponent', compiledReactCode, `import React from "react"\nconst ${subComponentNamespace} = {}`)
+        content.addContext(`import React from "react"\nconst ${subComponentNamespace} = {}\nconst ReactComponent = ${compiledReactCode}`)
+        content.addExporting('ReactComponent')
       }
 
       if (options.mode?.includes(Mode.VUE)) {
@@ -143,8 +147,8 @@ const transform = (options: PluginOptions): Transform => {
         root.forEach(markCodeAsPre)
 
         const { code: compiledVueCode } = require('@vue/compiler-sfc').compileTemplate({ source: DomUtils.getOuterHTML(root), filename: path })
-        const vueCode = compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(')
-        content.addProperty('VueComponent', '{ render: vueRender }', vueCode)
+        content.addContext(compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(') + `\nconst VueComponent = { render: vueRender }\nVueComponent.__hmrId = ${JSON.stringify(path)}`)
+        content.addExporting('VueComponent')
       }
 
       return {
