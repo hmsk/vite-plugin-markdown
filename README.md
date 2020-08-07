@@ -175,15 +175,12 @@ Vite is <MyComponent :type="'vue'">
 </template>
 
 <script>
-import { VueComponent } from './contents/the-doc.md'
+import { VueComponentWith } from './contents/the-doc.md'
 import MyComponent from './my-component.vue'
 
 export default {
   components: {
-    MarkdownContent: {
-      render: { VueComponent.render },
-      components: { MyComponent }
-    }
+    MarkdownContent: VueComponentWith({ MyComponent })
   }
 };
 </script>

@@ -147,8 +147,9 @@ const transform = (options: PluginOptions): Transform => {
         root.forEach(markCodeAsPre)
 
         const { code: compiledVueCode } = require('@vue/compiler-sfc').compileTemplate({ source: DomUtils.getOuterHTML(root), filename: path })
-        content.addContext(compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(') + `\nconst VueComponent = { render: vueRender }\nVueComponent.__hmrId = ${JSON.stringify(path)}`)
+        content.addContext(compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(') + `\nconst VueComponent = { render: vueRender }\nVueComponent.__hmrId = ${JSON.stringify(path)}\nconst VueComponentWith = (components) => ({ components, render: vueRender })\n`)
         content.addExporting('VueComponent')
+        content.addExporting('VueComponentWith')
       }
 
       return {

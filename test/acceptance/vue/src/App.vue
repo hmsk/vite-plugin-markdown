@@ -19,16 +19,13 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import LinkToRepository from './components/LinkToRepository.vue'
-import { attributes, html, toc, VueComponent }  from './assets/content.md'
+import { attributes, html, toc, VueComponent, VueComponentWith }  from './assets/content.md'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    ContentMarkdown: {
-      render: VueComponent.render, // TODO: 'extends: VueComponent' doesn't work currently
-      components: { LinkToRepository }
-    }
+    ContentMarkdown: VueComponentWith({ LinkToRepository })
   },
   data () {
     return {
