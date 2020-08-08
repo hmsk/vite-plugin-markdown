@@ -11,8 +11,7 @@
     "build": "rm -rf dist && tsc -p .",
     "test:acceptance": "npm run cypress:run",
     "cypress:run": "cypress run --config-file test/acceptance/cypress.json",
-    "cypress:open": "cypress open --config-file test/acceptance/cypress.json",
-    "prepublishOnly": "yarn build"
+    "cypress:open": "cypress open --config-file test/acceptance/cypress.json"
   },
   "keywords": [
     "vite",
