@@ -1,0 +1,9 @@
+{
+  "integrationFolder": "test/acceptance/integration",
+  "testFiles": "**/*_spec.*",
+  "fixturesFolder": "test/acceptance/fixtures",
+  "pluginsFile": "test/acceptance/plugins",
+  "screenshotsFolder": "test/acceptance/screenshots",
+  "supportFile": "test/acceptance/support/index.js",
+  "video": false
+}

@@ -9,6 +9,9 @@
   "scripts": {
     "dev": "tsc -w -p .",
     "build": "rm -rf dist && tsc -p .",
+    "test:acceptance": "npm run cypress:run",
+    "cypress:run": "cypress run --config-file test/acceptance/cypress.json",
+    "cypress:open": "cypress open --config-file test/acceptance/cypress.json",
     "prepublishOnly": "yarn build"
   },
   "keywords": [
@@ -40,6 +43,7 @@
     "@babel/core": "7.10.5",
     "@types/markdown-it": "10.0.1",
     "@vue/compiler-sfc": "3.0.0-rc.4",
+    "cypress": "4.12.1",
     "typescript": "3.9.6",
     "vite": "1.0.0-beta.11"
   }
