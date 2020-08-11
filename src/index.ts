@@ -32,7 +32,7 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
 
 class ExportedContent {
   #exports: string[] = []
-  #contextCode: string = ''
+  #contextCode = ''
 
   addContext (contextCode: string): void {
     this.#contextCode += `${contextCode}\n`
@@ -52,7 +52,7 @@ const transform = (options: PluginOptions): Transform => {
     test: ({ path }) => path.endsWith('.md'),
     transform: ({ code, path }) => {
       const content = new ExportedContent()
-      const fm = Frontmatter<object>(code)
+      const fm = Frontmatter<unknown>(code)
       content.addContext(`const attributes = ${JSON.stringify(fm.attributes)}`)
       content.addExporting('attributes')
 
@@ -104,7 +104,7 @@ const transform = (options: PluginOptions): Transform => {
         }
         root.forEach(markCodeAsPre)
 
-        const h = DomUtils.getOuterHTML(root).replace(/\"vfm{{/g, '{{').replace(/}}vfm\"/g, '}}')
+        const h = DomUtils.getOuterHTML(root).replace(/"vfm{{/g, '{{').replace(/}}vfm"/g, '}}')
 
         const reactCode = `
           const markdown =
