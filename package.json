@@ -40,14 +40,14 @@
     "vite": ">=1.0.0-beta.1"
   },
   "devDependencies": {
-    "@babel/core": "7.10.5",
-    "@types/markdown-it": "10.0.1",
+    "@babel/core": "7.11.1",
+    "@types/markdown-it": "10.0.2",
     "@typescript-eslint/eslint-plugin": "3.9.0",
     "@typescript-eslint/parser": "3.9.0",
     "@vue/compiler-sfc": "3.0.0-rc.4",
     "cypress": "4.12.1",
-    "eslint": "^7.6.0",
-    "typescript": "3.9.6",
+    "eslint": "7.6.0",
+    "typescript": "3.9.7",
     "vite": "1.0.0-beta.11"
   }
 }
