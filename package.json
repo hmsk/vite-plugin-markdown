@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/hmsk/vite-plugin-markdown/issues"
   },
-  "homepage": "https://github.com/hmsk/vite-plugin-markdown/tree/master/#readme",
+  "homepage": "https://github.com/hmsk/vite-plugin-markdown/tree/main/#readme",
   "dependencies": {
     "front-matter": "^4.0.0",
     "htmlparser2": "^4.1.0",
