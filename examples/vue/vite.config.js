@@ -1,11 +1,11 @@
 // @ts-check
-const fmPlugin = require('vite-plugin-markdown')
+const { markdownPlugin, Mode } = require('vite-plugin-markdown')
 
 /**
  * @type { import('vite').UserConfig }
  */
 const config = {
-  plugins: [fmPlugin({ mode: ['html', 'toc', 'vue'] })]
+  plugins: [markdownPlugin({ mode: [Mode.HTML, Mode.TOC, Mode.VUE] })]
 }
 
 module.exports = config

@@ -1,13 +1,13 @@
 // @ts-check
 const reactPlugin = require('vite-plugin-react')
-const mdPlugin = require('vite-plugin-markdown')
+const { markdownPlugin, Mode } = require('vite-plugin-markdown')
 
 /**
  * @type { import('vite').UserConfig }
  */
 const config = {
   jsx: 'react',
-  plugins: [reactPlugin, mdPlugin({ mode: ['html', 'toc', 'react'] })]
+  plugins: [reactPlugin, markdownPlugin({ mode: [Mode.HTML, Mode.TOC, Mode.REACT] })]
 }
 
 module.exports = config
