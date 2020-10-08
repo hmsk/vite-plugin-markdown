@@ -5,7 +5,8 @@
 Hello `<a>something</a>` okay
 
 ```js
-const a = {};
+const a = `{}`;
+const b = "\n";
 Object.keys(a).forEach(key => something);
 ```
 

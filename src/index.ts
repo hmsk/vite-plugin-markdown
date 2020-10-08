@@ -93,7 +93,7 @@ const transform = (options: PluginOptions): Transform => {
 
             if (node.tagName === 'code') {
               const codeContent = DomUtils.getInnerHTML(node)
-              node.attribs.dangerouslySetInnerHTML = `vfm{{ __html: \`${codeContent}\`}}vfm`
+              node.attribs.dangerouslySetInnerHTML = `vfm{{ __html: \`${codeContent.replace(/([\\`])/g, "\\$1")}\`}}vfm`
               node.childNodes = []
             }
 
