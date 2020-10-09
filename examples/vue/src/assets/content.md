@@ -20,6 +20,9 @@ Echo
 getSomething().then((response) => {
   const result = parse(response)
 })
+
+a = `b`
+b = "\n"
 ```
 
 `{{ something.value }}`
