@@ -1,6 +1,6 @@
 import Frontmatter from 'front-matter'
 import MarkdownIt from 'markdown-it'
-import { Transform } from 'vite'
+import { Transform, Plugin } from 'vite'
 import { parseDOM, DomUtils } from 'htmlparser2'
 import { Element, Node as DomHandlerNode } from 'domhandler'
 
@@ -159,8 +159,11 @@ const transform = (options: PluginOptions): Transform => {
   }
 }
 
-module.exports = (options: PluginOptions = {}) => {
+export const plugin = (options: PluginOptions = {}): Plugin => {
   return {
     transforms: [transform(options)]
   }
 }
+
+export default plugin
+exports.default = plugin
