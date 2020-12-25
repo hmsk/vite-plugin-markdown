@@ -7,11 +7,11 @@
     "build": "vite build"
   },
   "dependencies": {
-    "vue": "^3.0.0-beta.15"
+    "vue": "3.0.4"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.0.0-rc.4",
-    "vite": "^1.0.0-rc.13",
-    "vite-plugin-markdown": "file:../.."
+    "@vue/compiler-sfc": "3.0.4",
+    "vite-plugin-markdown": "file:../..",
+    "vite": "1.0.0-rc.13"
   }
 }
