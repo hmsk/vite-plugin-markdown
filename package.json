@@ -33,7 +33,7 @@
   "homepage": "https://github.com/hmsk/vite-plugin-markdown/tree/main/#readme",
   "dependencies": {
     "front-matter": "^4.0.0",
-    "htmlparser2": "^5.0.0",
+    "htmlparser2": "^6.0.0",
     "markdown-it": "^12.0.2"
   },
   "peerDependencies": {
