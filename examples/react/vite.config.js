@@ -1,13 +1,12 @@
 // @ts-check
-const reactPlugin = require('vite-plugin-react')
+const reactRefresh = require('@vitejs/plugin-react-refresh')
 const { plugin: mdPlugin, Mode } = require('vite-plugin-markdown')
 
 /**
  * @type { import('vite').UserConfig }
  */
 const config = {
-  jsx: 'react',
-  plugins: [reactPlugin, mdPlugin({ mode: [Mode.HTML, Mode.TOC, Mode.REACT] })]
+  plugins: [reactRefresh, mdPlugin({ mode: [Mode.HTML, Mode.TOC, Mode.REACT] })]
 }
 
 module.exports = config
