@@ -49,6 +49,6 @@
     "cypress": "6.2.1",
     "eslint": "7.17.0",
     "typescript": "4.1.3",
-    "vite": "2.0.0-beta.4"
+    "vite": "2.0.0-beta.30"
   }
 }
