@@ -37,7 +37,7 @@
     "markdown-it": "^12.0.0"
   },
   "peerDependencies": {
-    "vite": ">=2.0.0-beta.4"
+    "vite": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.12.17",
