@@ -22,6 +22,10 @@
     "vue"
   ],
   "author": "Kengo Hamasaki <k.hamasaki@gmail.com>",
+  "contributors": [
+    "sapphi-red <green@sapphi.red>",
+    "Alex Zheng <zhibo90@gmail.com>"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
