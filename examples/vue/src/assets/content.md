@@ -23,7 +23,11 @@ getSomething().then((response) => {
 
 a = `b`
 b = "\n"
+
+console.log("&copy;");
 ```
+
+&copy; : this is HTML special chars
 
 `{{ something.value }}`
 
