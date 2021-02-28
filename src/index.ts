@@ -146,7 +146,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     }
     root.forEach(markCodeAsPre)
 
-    const { code: compiledVueCode } = require('@vue/compiler-sfc').compileTemplate({ source: DomUtils.getOuterHTML(root), filename: id, id })
+    const { code: compiledVueCode } = require('@vue/compiler-sfc').compileTemplate({ source: DomUtils.getOuterHTML(root, { decodeEntities: true }), filename: id, id })
     content.addContext(compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(') + `\nconst VueComponent = { render: vueRender }\nVueComponent.__hmrId = ${JSON.stringify(id)}\nconst VueComponentWith = (components) => ({ components, render: vueRender })\n`)
     content.addExporting('VueComponent')
     content.addExporting('VueComponentWith')
