@@ -8,7 +8,11 @@ Hello `<a>something</a>` okay
 const a = `{}`;
 const b = "\n";
 Object.keys(a).forEach(key => something);
+
+console.log("&num;");
 ```
+
+&num; : this is HTML special chars
 
 ## Link to the repo
 
