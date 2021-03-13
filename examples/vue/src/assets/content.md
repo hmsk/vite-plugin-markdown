@@ -34,3 +34,5 @@ console.log("&copy;");
 ## This section has a custom element
 
 <link-to-repository color="#37ae70">See Repository</link-to-repository>
+
+<img src="src/brew.png">

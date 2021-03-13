@@ -17,3 +17,7 @@ console.log("&num;");
 ## Link to the repo
 
 <LinkToRepository color="#55d2fa">Open Repository</LinkToRepository>
+
+## img tag should be closed as JSX
+
+<img src="src/brew.png">

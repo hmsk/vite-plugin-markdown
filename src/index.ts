@@ -28,7 +28,7 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
   } else if (options.markdown) {
     return { render: options.markdown }
   }
-  return MarkdownIt({ html: true, xhtmlOut: options.mode?.includes(Mode.REACT) })
+  return MarkdownIt({ html: true, xhtmlOut: options.mode?.includes(Mode.REACT) }) // TODO: xhtmlOut should be got rid of in next major update
 }
 
 class ExportedContent {
@@ -104,7 +104,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     }
     root.forEach(markCodeAsPre)
 
-    const h = DomUtils.getOuterHTML(root).replace(/"vfm{{/g, '{{').replace(/}}vfm"/g, '}}')
+    const h = DomUtils.getOuterHTML(root, { selfClosingTags: true }).replace(/"vfm{{/g, '{{').replace(/}}vfm"/g, '}}')
 
     const reactCode = `
       const markdown =
