@@ -104,7 +104,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     }
     root.forEach(markCodeAsPre)
 
-    const h = DomUtils.getOuterHTML(root).replace(/"vfm{{/g, '{{').replace(/}}vfm"/g, '}}')
+    const h = DomUtils.getOuterHTML(root, { selfClosingTags: true }).replace(/"vfm{{/g, '{{').replace(/}}vfm"/g, '}}')
 
     const reactCode = `
       const markdown =
