@@ -28,7 +28,7 @@ const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body:
   } else if (options.markdown) {
     return { render: options.markdown }
   }
-  return MarkdownIt({ html: true, xhtmlOut: options.mode?.includes(Mode.REACT) })
+  return MarkdownIt({ html: true, xhtmlOut: options.mode?.includes(Mode.REACT) }) // TODO: xhtmlOut should be got rid of in next major update
 }
 
 class ExportedContent {
