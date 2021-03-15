@@ -4,12 +4,18 @@
   "plugins": [
     "@typescript-eslint"
   ],
+  "ignorePatterns": [
+    "dist/*"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "@typescript-eslint/no-var-requires": "off"
+    "@typescript-eslint/comma-dangle": ["error", "always-multiline"],
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/quotes": ["error", "single"],
+    "@typescript-eslint/semi": ["error", "never"]
   }
 }

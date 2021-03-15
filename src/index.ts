@@ -6,10 +6,10 @@ import { parseDOM, DomUtils } from 'htmlparser2'
 import { Element, Node as DomHandlerNode } from 'domhandler'
 
 export enum Mode {
-  TOC = "toc",
-  HTML = "html",
-  REACT = "react",
-  VUE = "vue"
+  TOC = 'toc',
+  HTML = 'html',
+  REACT = 'react',
+  VUE = 'vue',
 }
 
 export interface PluginOptions {
@@ -70,7 +70,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
 
     const toc: { level: string; content: string }[] = indicies.map(index => ({
       level: index.tagName.replace('h', ''),
-      content: DomUtils.getInnerHTML(index)
+      content: DomUtils.getInnerHTML(index),
     }))
 
     content.addContext(`const toc = ${JSON.stringify(toc)}`)
@@ -93,7 +93,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
 
         if (node.tagName === 'code') {
           const codeContent = DomUtils.getInnerHTML(node, { decodeEntities: true })
-          node.attribs.dangerouslySetInnerHTML = `vfm{{ __html: \`${codeContent.replace(/([\\`])/g, "\\$1")}\`}}vfm`
+          node.attribs.dangerouslySetInnerHTML = `vfm{{ __html: \`${codeContent.replace(/([\\`])/g, '\\$1')}\`}}vfm`
           node.childNodes = []
         }
 
@@ -153,7 +153,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
   }
 
   return {
-    code: content.export()
+    code: content.export(),
   }
 }
 
@@ -163,7 +163,7 @@ export const plugin = (options: PluginOptions = {}): Plugin => {
     enforce: 'pre',
     transform (code, id) {
       return tf(code, id, options)
-    }
+    },
   }
 }
 
