@@ -108,9 +108,9 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
 
     const reactCode = `
       const markdown =
-        <div>
+        <>
           ${h}
-        </div>
+        </>
     `
     const compiledReactCode = `
       function (props) {
