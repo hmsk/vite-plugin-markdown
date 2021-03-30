@@ -28,58 +28,7 @@ module.exports = {
 }
 ```
 
-### Options
-
-```ts
-mode?: ('html' | 'toc' | 'react' | 'vue')[]
-markdown?: (body: string) => string
-markdownIt?: MarkdownIt | MarkdownIt.Options
-```
-
-Enum for `mode` is provided as `Mode`
-
-```ts
-import { Mode } from 'vite-plugin-markdown'
-
-console.log(Mode.HTML) //=> 'html'
-console.log(Mode.TOC) //=> 'toc'
-console.log(Mode.REACT) //=> 'react'
-console.log(Mode.VUE) //=> 'vue'
-```
-
-### Type declarations
-
-In TypeScript project, need to declare typedefs for `.md` file as you need.
-
-```ts
-declare module '*.md' {
-  // "unknown" would be more detailed depends on how you structure frontmatter
-  const attributes: Record<string, unknown>; 
-
-  // When "Mode.TOC" is requested
-  const toc: { level: string, content: string }[];
-
-  // When "Mode.HTML" is requested
-  const html: string;
-
-  // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
-  import React from 'react'
-  const react: React.VFC;
-  
-  // When "Mode.Vue" is requested
-  import { ComponentOptions } from 'vue';
-  const vue: ComponentOptions;
-
-  // Modify below per your usage
-  export { attributes, toc, html, react, vue };
-}
-```
-
-Save as `vite.d.ts` for instance.
-
-## Mode examples:
-
-### Import Front Matter attributes
+Then you can import front matter attributes from `.md` file as default.
 
 ```md
 ---
@@ -102,7 +51,31 @@ import { attributes } from './contents/the-doc.md';
 console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
 ```
 
-### Import compiled HTML (`Mode.HTML`)
+### Options
+
+```ts
+mode?: ('html' | 'toc' | 'react' | 'vue')[]
+markdown?: (body: string) => string
+markdownIt?: MarkdownIt | MarkdownIt.Options
+```
+
+Enum for `mode` is provided as `Mode`
+
+```ts
+import { Mode } from 'vite-plugin-markdown'
+
+console.log(Mode.HTML) //=> 'html'
+console.log(Mode.TOC) //=> 'toc'
+console.log(Mode.REACT) //=> 'react'
+console.log(Mode.VUE) //=> 'vue'
+```
+
+"Mode" enables you to import markdown file in various formats (HTML, ToC, React/Vue Component)
+
+#### `Mode.HTML`
+
+<details>
+  <summary>Import compiled HTML</summary>
 
 ```md
 # This is awesome
@@ -116,7 +89,12 @@ import { html } from './contents/the-doc.md';
 console.log(html) //=> "<h1>This is awesome</h1><p>ite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.</p>"
 ```
 
-### Import ToC metadata (`Mode.TOC`)
+</details>
+
+#### `Mode.TOC`
+
+<details>
+  <summary>Import ToC metadata</summary>
 
 ```md
 # vite
@@ -136,7 +114,12 @@ import { toc } from './contents/the-doc.md'
 console.log(toc) //=> [{ level: '1', content: 'vite' }, { level: '2', content: 'Status' }, { level: '2', content: 'Getting Started' }, { level: '1', content: 'Notes' },]
 ```
 
-### Import as a React component (`Mode.REACT`)
+</details>
+
+#### `Mode.REACT`
+
+<details>
+  <summary>Import as a React component</summary>
 
 ```jsx
 import React from 'react'
@@ -175,8 +158,12 @@ function MyReactApp() {
 `MyComponent` on markdown perform as a React component.
 
 </details>
+</details>
 
-### Import as a Vue component (`Mode.VUE`)
+#### `Mode.VUE`
+
+<details>
+  <summary>Import as a Vue component</summary>
 
 ```vue
 <template>
@@ -227,6 +214,37 @@ export default {
 `MyComponent` on markdown perform as a Vue component.
 
 </details>
+</details>
+
+### Type declarations
+
+In TypeScript project, need to declare typedefs for `.md` file as you need.
+
+```ts
+declare module '*.md' {
+  // "unknown" would be more detailed depends on how you structure frontmatter
+  const attributes: Record<string, unknown>; 
+
+  // When "Mode.TOC" is requested
+  const toc: { level: string, content: string }[];
+
+  // When "Mode.HTML" is requested
+  const html: string;
+
+  // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
+  import React from 'react'
+  const react: React.VFC;
+  
+  // When "Mode.Vue" is requested
+  import { ComponentOptions } from 'vue';
+  const vue: ComponentOptions;
+
+  // Modify below per your usage
+  export { attributes, toc, html, react, vue };
+}
+```
+
+Save as `vite.d.ts` for instance.
 
 ## License
 
