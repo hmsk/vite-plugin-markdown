@@ -14,7 +14,7 @@ npx i -D vite-plugin-markdown
 <summary>For vite v1</summary>
 
 ```
-npx i -D vite-plugin-markdown@vite-1
+npm i -D vite-plugin-markdown@vite-1
 ```
 </details>
 
