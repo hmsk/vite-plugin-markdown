@@ -7,7 +7,7 @@ A plugin enables you to import a Markdown file as various formats on your [vite]
 ## Setup
 
 ```
-npx i -D vite-plugin-markdown
+npm i -D vite-plugin-markdown
 ```
 
 <details>
