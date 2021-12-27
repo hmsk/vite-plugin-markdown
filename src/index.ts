@@ -107,7 +107,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     root.forEach(markCodeAsPre)
 
     const h = DomUtils.getOuterHTML(root, { selfClosingTags: true })
-      .replace(/dangerouslySetInnerHTML="vfm"/g, item => `dangerouslySetInnerHTML={{__html: \`${codeFragments.shift()}\`}}`)
+      .replace(/dangerouslySetInnerHTML="vfm"/g, () => `dangerouslySetInnerHTML={{__html: \`${codeFragments.shift()}\`}}`)
 
     const reactCode = `
       const markdown =
