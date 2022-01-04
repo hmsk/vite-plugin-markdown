@@ -95,7 +95,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
         if (node.tagName === 'code') {
           const codeContent = DomUtils.getInnerHTML(node, { decodeEntities: true })
           codeFragments.push(codeContent)
-          node.attribs.dangerouslySetInnerHTML = 'vfm';
+          node.attribs.dangerouslySetInnerHTML = 'vfm'
           node.childNodes = []
         }
 
