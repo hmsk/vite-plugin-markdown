@@ -80,7 +80,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
   if (options.mode?.includes(Mode.REACT)) {
     const root = parseDOM(html, { lowerCaseTags: false })
     const subComponentNamespace = 'SubReactComponent'
-    const codeFragments = []
+    const codeFragments: string[] = []
     
     const markCodeAsPre = (node: DomHandlerNode): void => {
       if (node instanceof Element) {
