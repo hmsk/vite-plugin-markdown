@@ -80,7 +80,8 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
   if (options.mode?.includes(Mode.REACT)) {
     const root = parseDOM(html, { lowerCaseTags: false })
     const subComponentNamespace = 'SubReactComponent'
-
+    const codeFragments: string[] = []
+    
     const markCodeAsPre = (node: DomHandlerNode): void => {
       if (node instanceof Element) {
         if (node.tagName.match(/^[A-Z].+/)) {
@@ -93,7 +94,8 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
 
         if (node.tagName === 'code') {
           const codeContent = DomUtils.getInnerHTML(node, { decodeEntities: true })
-          node.attribs.dangerouslySetInnerHTML = `vfm{{ __html: \`${codeContent.replace(/([\\`])/g, '\\$1')}\`}}vfm`
+          codeFragments.push(codeContent)
+          node.attribs.dangerouslySetInnerHTML = 'vfm'
           node.childNodes = []
         }
 
@@ -104,7 +106,8 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     }
     root.forEach(markCodeAsPre)
 
-    const h = DomUtils.getOuterHTML(root, { selfClosingTags: true }).replace(/"vfm{{/g, '{{').replace(/}}vfm"/g, '}}')
+    const h = DomUtils.getOuterHTML(root, { selfClosingTags: true })
+      .replace(/dangerouslySetInnerHTML="vfm"/g, () => `dangerouslySetInnerHTML={{__html: \`${codeFragments.shift()}\`}}`)
 
     const reactCode = `
       const markdown =
