@@ -150,7 +150,7 @@ import { MyComponent } from './my-component'
 function MyReactApp() {
   return (
     <div>
-      <ReactComponent my-component={MyComponent} />
+      <ReactComponent MyComponent={MyComponent} />
     </div>
 }
 ```
