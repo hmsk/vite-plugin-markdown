@@ -258,7 +258,7 @@ declare module '*.md' {
   const html: string;
 
   // When "Mode.Tokens" is requested
-  import Token from 'markdown-it/lib/token'
+  import Token from '@types/markdown-it/lib/token';
   const tokens: Token[];
 
   // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
