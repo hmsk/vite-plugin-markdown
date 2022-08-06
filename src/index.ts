@@ -79,7 +79,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     content.addExporting('toc')
   }
 
-  if (options.mode?.includes(Mode.TOKENS) && compiler instanceof MarkdownIt) {
+  if (options.mode?.includes(Mode.TOKENS) && 'parse' in compiler) {
     const tokens = compiler.parse(fm.body, {})
     content.addContext(`const tokens = ${JSON.stringify(tokens)}`)
     content.addExporting('tokens')
