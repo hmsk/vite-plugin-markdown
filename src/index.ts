@@ -8,6 +8,7 @@ import { Element, Node as DomHandlerNode } from 'domhandler'
 export enum Mode {
   TOC = 'toc',
   HTML = 'html',
+  TOKENS = 'tokens',
   REACT = 'react',
   VUE = 'vue',
 }
@@ -56,7 +57,8 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
   content.addContext(`const attributes = ${JSON.stringify(fm.attributes)}`)
   content.addExporting('attributes')
 
-  const html = markdownCompiler(options).render(fm.body)
+  const compiler = markdownCompiler(options)
+  const html = compiler.render(fm.body)
   if (options.mode?.includes(Mode.HTML)) {
     content.addContext(`const html = ${JSON.stringify(html)}`)
     content.addExporting('html')
@@ -75,6 +77,12 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
 
     content.addContext(`const toc = ${JSON.stringify(toc)}`)
     content.addExporting('toc')
+  }
+
+  if (options.mode?.includes(Mode.TOKENS) && compiler instanceof MarkdownIt) {
+    const tokens = compiler.parse(fm.body, {})
+    content.addContext(`const tokens = ${JSON.stringify(tokens)}`)
+    content.addExporting('tokens')
   }
 
   if (options.mode?.includes(Mode.REACT)) {
