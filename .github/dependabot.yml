@@ -7,4 +7,5 @@ updates:
     ignore:
       - dependency-name: '@types/node'
         versions:
+          - 17.x
           - 18.x
