@@ -46,7 +46,7 @@
     "vite": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.18.0",
+    "@babel/core": "7.20.12",
     "@types/markdown-it": "12.2.3",
     "@types/node": "16.18.11",
     "@typescript-eslint/eslint-plugin": "5.32.0",
