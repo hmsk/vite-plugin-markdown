@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-markdown",
-  "version": "2.2.0",
+  "version": "2.1.0",
   "description": "Import markdown files in vite",
   "main": "dist/index.js",
   "files": [
