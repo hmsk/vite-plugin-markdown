@@ -54,7 +54,7 @@ console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe th
 ### Options
 
 ```ts
-mode?: ('html' | 'toc' | 'react' | 'vue')[]
+mode?: ('html' | 'toc' | 'react' | 'vue' | 'raw')[]
 markdown?: (body: string) => string
 markdownIt?: MarkdownIt | MarkdownIt.Options
 ```
@@ -68,6 +68,7 @@ console.log(Mode.HTML) //=> 'html'
 console.log(Mode.TOC) //=> 'toc'
 console.log(Mode.REACT) //=> 'react'
 console.log(Mode.VUE) //=> 'vue'
+console.log(Mode.RAW) //=> 'raw'
 ```
 
 "Mode" enables you to import markdown file in various formats (HTML, ToC, React/Vue Component)
@@ -89,6 +90,18 @@ import { html } from './contents/the-doc.md';
 console.log(html) //=> "<h1>This is awesome</h1><p>ite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.</p>"
 ```
 
+</details>
+
+#### `Mode.RAW`
+
+<details>
+  <summary>Import the raw Markdown content</summary>
+
+```js
+import { raw } from './contents/the-doc.md'
+
+console.log(raw) //=> "# This is awesome \n Vite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production."
+```
 </details>
 
 #### `Mode.TOC`
@@ -216,6 +229,7 @@ export default {
 </details>
 </details>
 
+
 ### Type declarations
 
 In TypeScript project, need to declare typedefs for `.md` file as you need.
@@ -230,6 +244,9 @@ declare module '*.md' {
 
   // When "Mode.HTML" is requested
   const html: string;
+
+  // When "Mode.RAW" is requested
+  const raw: string
 
   // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
   import React from 'react'
