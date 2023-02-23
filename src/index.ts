@@ -10,6 +10,7 @@ export enum Mode {
   HTML = 'html',
   REACT = 'react',
   VUE = 'vue',
+  RAW = 'raw',
 }
 
 export interface PluginOptions {
@@ -60,6 +61,11 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
   if (options.mode?.includes(Mode.HTML)) {
     content.addContext(`const html = ${JSON.stringify(html)}`)
     content.addExporting('html')
+  }
+
+  if (options.mode?.includes(Mode.RAW)) {
+    content.addContext(`const raw = ${JSON.stringify(fm.body)}`)
+    content.addExporting('raw')
   }
 
   if (options.mode?.includes(Mode.TOC)) {
