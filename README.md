@@ -54,7 +54,7 @@ console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe th
 ### Options
 
 ```ts
-mode?: ('html' | 'toc' | 'react' | 'vue')[]
+mode?: ('html' | 'toc' | 'tokens' | 'react' | 'vue')[]
 markdown?: (body: string) => string
 markdownIt?: MarkdownIt | MarkdownIt.Options
 ```
@@ -66,11 +66,12 @@ import { Mode } from 'vite-plugin-markdown'
 
 console.log(Mode.HTML) //=> 'html'
 console.log(Mode.TOC) //=> 'toc'
+console.log(Mode.TOKENS) //=> 'tokens'
 console.log(Mode.REACT) //=> 'react'
 console.log(Mode.VUE) //=> 'vue'
 ```
 
-"Mode" enables you to import markdown file in various formats (HTML, ToC, React/Vue Component)
+"Mode" enables you to import markdown file in various formats (HTML, ToC, Tokens, React/Vue Component)
 
 #### `Mode.HTML`
 
@@ -216,6 +217,31 @@ export default {
 </details>
 </details>
 
+#### `Mode.TOKENS`
+
+<details>
+  <summary>Import as parsed markdown tokens from MarkdownIt</summary>
+
+```md
+# vite
+
+Vite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.
+
+## Status
+
+## Getting Started
+
+# Notes
+```
+
+```ts
+import { tokens } from './contents/the-doc.md'
+
+console.log(tokens) //=> [{ type: 'heading_open', tag: 'h1', ... }, ...]
+```
+
+</details>
+
 ### Type declarations
 
 In TypeScript project, need to declare typedefs for `.md` file as you need.
@@ -231,6 +257,10 @@ declare module '*.md' {
   // When "Mode.HTML" is requested
   const html: string;
 
+  // When "Mode.Tokens" is requested
+  import Token from '@types/markdown-it/lib/token';
+  const tokens: Token[];
+
   // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
   import React from 'react'
   const ReactComponent: React.VFC;
@@ -241,7 +271,7 @@ declare module '*.md' {
   const VueComponentWith: (components: Record<string, Component>) => ComponentOptions;
 
   // Modify below per your usage
-  export { attributes, toc, html, ReactComponent, VueComponent, VueComponentWith };
+  export { attributes, toc, html, tokens, ReactComponent, VueComponent, VueComponentWith };
 }
 ```
 
