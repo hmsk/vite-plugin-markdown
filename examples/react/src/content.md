@@ -1,3 +1,6 @@
+---
+title: Content
+---
 # Content
 
 ## Second header

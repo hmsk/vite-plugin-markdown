@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { html, toc, ReactComponent } from './content.md'
-import content from './content.md?raw'
+import { html, markdown, toc, ReactComponent } from './content.md'
 import LinkToRepository from './LinkToRepository'
 
 function App() {
@@ -35,9 +34,9 @@ function App() {
         {toc.map((h,i) => <li key={i}>{h.level} - {h.content}</li>)}
         <h2>ReactComponent</h2>
         <ReactComponent LinkToRepository={LinkToRepository} />
-        <h2>?raw import</h2>
+        <h2>raw markdown</h2>
         <blockquote>
-          {content}
+          {markdown}
         </blockquote>
       </main>
     </div>
