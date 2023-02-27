@@ -10,7 +10,7 @@ export enum Mode {
   HTML = 'html',
   REACT = 'react',
   VUE = 'vue',
-  RAW = 'raw',
+  MARKDOWN = 'markdown',
 }
 
 export interface PluginOptions {
@@ -63,9 +63,9 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     content.addExporting('html')
   }
 
-  if (options.mode?.includes(Mode.RAW)) {
-    content.addContext(`const raw = ${JSON.stringify(fm.body)}`)
-    content.addExporting('raw')
+  if (options.mode?.includes(Mode.MARKDOWN)) {
+    content.addContext(`const markdown = ${JSON.stringify(fm.body)}`)
+    content.addExporting('markdown')
   }
 
   if (options.mode?.includes(Mode.TOC)) {

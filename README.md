@@ -54,7 +54,7 @@ console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe th
 ### Options
 
 ```ts
-mode?: ('html' | 'toc' | 'react' | 'vue' | 'raw')[]
+mode?: ('html' | 'markdown' | 'toc' | 'react' | 'vue')[]
 markdown?: (body: string) => string
 markdownIt?: MarkdownIt | MarkdownIt.Options
 ```
@@ -65,10 +65,10 @@ Enum for `mode` is provided as `Mode`
 import { Mode } from 'vite-plugin-markdown'
 
 console.log(Mode.HTML) //=> 'html'
+console.log(Mode.MARKDOWN) //=> 'markdown'
 console.log(Mode.TOC) //=> 'toc'
 console.log(Mode.REACT) //=> 'react'
 console.log(Mode.VUE) //=> 'vue'
-console.log(Mode.RAW) //=> 'raw'
 ```
 
 "Mode" enables you to import markdown file in various formats (HTML, ToC, React/Vue Component)
@@ -92,15 +92,15 @@ console.log(html) //=> "<h1>This is awesome</h1><p>ite is an opinionated web dev
 
 </details>
 
-#### `Mode.RAW`
+#### `Mode.MARKDOWN`
 
 <details>
   <summary>Import the raw Markdown content</summary>
 
 ```js
-import { raw } from './contents/the-doc.md'
+import { markdown } from './contents/the-doc.md'
 
-console.log(raw) //=> "# This is awesome \n Vite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production."
+console.log(markdown) //=> "# This is awesome \n Vite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production."
 ```
 </details>
 
