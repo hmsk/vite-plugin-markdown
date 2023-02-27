@@ -42,7 +42,7 @@
   "dependencies": {
     "domhandler": "^4.0.0",
     "front-matter": "^4.0.0",
-    "htmlparser2": "^6.0.0",
+    "htmlparser2": "^8.0.1",
     "markdown-it": "^12.0.0"
   },
   "peerDependencies": {
