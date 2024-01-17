@@ -1,6 +1,7 @@
 # vite-plugin-markdown
 
-[![npm](https://img.shields.io/npm/v/vite-plugin-markdown.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-markdown) [![npm](https://img.shields.io/npm/v/vite-plugin-markdown/vite-1?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-markdown/v/vite-1)
+[![npm](https://img.shields.io/npm/v/vite-plugin-markdown.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-markdown) [![npm beta channel](https://img.shields.io/npm/v/vite-plugin-markdown/beta?style=for-the-badge&label=beta&color=yellow)](https://www.npmjs.com/package/vite-plugin-markdown/v/beta)
+
 
 A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project.
 
