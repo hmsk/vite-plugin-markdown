@@ -8,3 +8,8 @@ updates:
       - dependency-name: '@types/node'
         versions:
           - 20.x
+    groups:
+      eslint-family:
+        patterns:
+          - 'eslint'
+          - '@typescript-eslint/*'
