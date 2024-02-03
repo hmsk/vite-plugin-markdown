@@ -53,7 +53,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
   if (!id.endsWith('.md')) return null
 
   const content = new ExportedContent()
-  const fm = Frontmatter<unknown>(code)
+  const fm = Frontmatter.default<unknown>(code)
   content.addContext(`const attributes = ${JSON.stringify(fm.attributes)}`)
   content.addExporting('attributes')
 
