@@ -2,7 +2,8 @@
   "name": "vite-plugin-markdown",
   "version": "2.2.0",
   "description": "Import markdown files in vite",
-  "main": "dist/index.js",
+  "exports": "./dist/index.js",
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -48,7 +49,7 @@
     "markdown-it": "^12.0.0"
   },
   "peerDependencies": {
-    "vite": ">= 2.0.0"
+    "vite": ">= 5.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.23.9",
@@ -60,6 +61,6 @@
     "cypress": "13.6.4",
     "eslint": "8.56.0",
     "typescript": "5.3.3",
-    "vite": "4.5.2"
+    "vite": "5.0.12"
   }
 }
