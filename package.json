@@ -54,11 +54,11 @@
   "devDependencies": {
     "@babel/core": "7.23.9",
     "@types/babel__core": "7.20.5",
-    "@types/markdown-it": "12.2.3",
+    "@types/markdown-it": "13.0.7",
     "@types/node": "18.19.14",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "@vue/compiler-sfc": "3.4.15",
+    "@vue/compiler-sfc": "3.4.16",
     "cypress": "13.6.4",
     "eslint": "8.56.0",
     "typescript": "5.3.3",
