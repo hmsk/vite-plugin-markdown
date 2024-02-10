@@ -9,8 +9,7 @@
     "outDir": "dist",
     "module": "Node16",
     "lib": ["ES2022", "DOM"],
-    "sourceMap": true,
-    "skipLibCheck": true
+    "sourceMap": true
   },
   "include": ["./src"]
 }
