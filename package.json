@@ -45,7 +45,7 @@
     "domhandler": "^4.0.0",
     "front-matter": "^4.0.0",
     "htmlparser2": "^6.0.0",
-    "markdown-it": "^12.0.0"
+    "markdown-it": "^14.1.0"
   },
   "peerDependencies": {
     "vite": ">= 2.0.0"
