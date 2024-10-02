@@ -1,7 +1,8 @@
 {
-  "name": "vite-plugin-markdown",
-  "version": "2.2.0",
+  "name": "@matthijsgroen/vite-plugin-markdown",
+  "version": "2.2.1",
   "description": "Import markdown files in vite",
+  "repository": "https://github.com/matthijsgroen/vite-plugin-markdown.git",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -33,15 +34,13 @@
     "Felix Fritz <felix.fritz@tink.com>"
   ],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hmsk/vite-plugin-markdown.git"
-  },
   "bugs": {
     "url": "https://github.com/hmsk/vite-plugin-markdown/issues"
   },
   "homepage": "https://github.com/hmsk/vite-plugin-markdown/tree/main/#readme",
   "dependencies": {
+    "@babel/core": "7.23.9",
+    "@babel/preset-react": "7.23.3",
     "domhandler": "^4.0.0",
     "front-matter": "^4.0.0",
     "htmlparser2": "^6.0.0",
@@ -51,7 +50,6 @@
     "vite": ">= 2.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.23.9",
     "@types/markdown-it": "12.2.3",
     "@types/node": "18.19.14",
     "@typescript-eslint/eslint-plugin": "6.20.0",
@@ -60,6 +58,9 @@
     "cypress": "13.6.4",
     "eslint": "8.56.0",
     "typescript": "5.3.3",
-    "vite": "4.5.2"
+    "vite": "^4.5.5"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }
