@@ -1,5 +1,5 @@
 {
-  "name": "vite-plugin-markdown",
+  "name": "@matthijsgroen/vite-plugin-markdown",
   "version": "2.2.1",
   "description": "Import markdown files in vite",
   "repository": "https://github.com/matthijsgroen/vite-plugin-markdown.git",
