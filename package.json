@@ -58,7 +58,7 @@
     "@types/node": "20.17.6",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "@typescript-eslint/parser": "6.21.0",
-    "@vue/compiler-sfc": "3.4.16",
+    "@vue/compiler-sfc": "3.5.12",
     "cypress": "13.6.4",
     "eslint": "8.56.0",
     "typescript": "5.3.3",
