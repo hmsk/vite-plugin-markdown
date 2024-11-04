@@ -1,5 +1,5 @@
 import Frontmatter, { FrontMatterResult } from 'front-matter'
-import MarkdownIt from 'markdown-it'
+import MarkdownIt, { Options as MarkdownItOptions } from 'markdown-it'
 import { Plugin } from 'vite'
 import { TransformResult } from 'rollup'
 import { parseDOM, DomUtils } from 'htmlparser2'
@@ -16,7 +16,7 @@ export enum Mode {
 export interface PluginOptions {
   mode?: Mode[]
   markdown?: (body: string) => string
-  markdownIt?: MarkdownIt | MarkdownIt.Options
+  markdownIt?: MarkdownIt | MarkdownItOptions
 }
 
 const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body: string) => string } => {
