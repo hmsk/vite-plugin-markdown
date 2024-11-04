@@ -7,7 +7,7 @@ updates:
     ignore:
       - dependency-name: '@types/node'
         versions:
-          - 20.x
+          - 22.x
     groups:
       eslint-family:
         patterns:
