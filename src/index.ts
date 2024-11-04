@@ -1,5 +1,5 @@
-import Frontmatter from 'front-matter'
-import MarkdownIt from 'markdown-it'
+import Frontmatter, { FrontMatterResult } from 'front-matter'
+import MarkdownIt, { Options as MarkdownItOptions } from 'markdown-it'
 import { Plugin } from 'vite'
 import { TransformResult } from 'rollup'
 import { parseDOM, DomUtils } from 'htmlparser2'
@@ -16,7 +16,7 @@ export enum Mode {
 export interface PluginOptions {
   mode?: Mode[]
   markdown?: (body: string) => string
-  markdownIt?: MarkdownIt | MarkdownIt.Options
+  markdownIt?: MarkdownIt | MarkdownItOptions
 }
 
 const markdownCompiler = (options: PluginOptions): MarkdownIt | { render: (body: string) => string } => {
@@ -49,11 +49,11 @@ class ExportedContent {
   }
 }
 
-const tf = (code: string, id: string, options: PluginOptions): TransformResult => {
+const tf = async (code: string, id: string, options: PluginOptions): Promise<TransformResult> => {
   if (!id.endsWith('.md')) return null
 
   const content = new ExportedContent()
-  const fm = Frontmatter<unknown>(code)
+  const fm = (Frontmatter as unknown as ((file: string) => FrontMatterResult<unknown>))(code)
   content.addContext(`const attributes = ${JSON.stringify(fm.attributes)}`)
   content.addExporting('attributes')
 
@@ -123,7 +123,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
         Object.keys(props).forEach(function (key) {
           SubReactComponent[key] = props[key]
         })
-        ${require('@babel/core').transformSync(reactCode, { ast: false, presets: ['@babel/preset-react'] }).code}
+        ${(await import('@babel/core')).transformSync(reactCode, { ast: false, presets: ['@babel/preset-react'] })?.code}
         return markdown
       }
     `
@@ -152,7 +152,7 @@ const tf = (code: string, id: string, options: PluginOptions): TransformResult =
     }
     root.forEach(markCodeAsPre)
 
-    const { code: compiledVueCode } = require('@vue/compiler-sfc').compileTemplate({ source: DomUtils.getOuterHTML(root, { decodeEntities: true }), filename: id, id })
+    const { code: compiledVueCode } = (await import('@vue/compiler-sfc')).compileTemplate({ source: DomUtils.getOuterHTML(root, { decodeEntities: true }), filename: id, id })
     content.addContext(compiledVueCode.replace('\nexport function render(', '\nfunction vueRender(') + `\nconst VueComponent = { render: vueRender }\nVueComponent.__hmrId = ${JSON.stringify(id)}\nconst VueComponentWith = (components) => ({ components, render: vueRender })\n`)
     content.addExporting('VueComponent')
     content.addExporting('VueComponentWith')
@@ -174,4 +174,3 @@ export const plugin = (options: PluginOptions = {}): Plugin => {
 }
 
 export default plugin
-exports.default = plugin

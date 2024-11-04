@@ -22,7 +22,7 @@ npm i -D vite-plugin-markdown@vite-1
 ### Config
 
 ```js
-const mdPlugin = require('vite-plugin-markdown')
+import mdPlugin from 'vite-plugin-markdown'
 
 module.exports = {
   plugins: [mdPlugin(options)]
