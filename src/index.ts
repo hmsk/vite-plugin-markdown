@@ -98,7 +98,7 @@ const tf = async (code: string, id: string, options: PluginOptions): Promise<Tra
         }
 
         if (node.tagName === 'code') {
-          const codeContent = DomUtils.getInnerHTML(node, { decodeEntities: true })
+          const codeContent = DomUtils.getInnerHTML(node, { decodeEntities: false })
           node.attribs.dangerouslySetInnerHTML = `vfm{{ __html: \`${codeContent.replace(/([\\`])/g, '\\$1')}\`}}vfm`
           node.childNodes = []
         }
