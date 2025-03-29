@@ -246,6 +246,9 @@ declare module '*.md' {
   // When "Mode.HTML" is requested
   const html: string;
 
+  // When "Mode.MARKDOWN" is requested
+  const markdown: string;
+
   // When "Mode.RAW" is requested
   const raw: string
 
@@ -259,7 +262,7 @@ declare module '*.md' {
   const VueComponentWith: (components: Record<string, Component>) => ComponentOptions;
 
   // Modify below per your usage
-  export { attributes, toc, html, ReactComponent, VueComponent, VueComponentWith };
+  export { attributes, toc, html, markdown, ReactComponent, VueComponent, VueComponentWith };
 }
 ```
 
