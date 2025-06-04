@@ -88,7 +88,7 @@ Vite is an opinionated web dev build tool that serves your code via native ES Mo
 ```ts
 import { html } from './contents/the-doc.md';
 
-console.log(html) //=> "<h1>This is awesome</h1><p>ite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.</p>"
+console.log(html) //=> "<h1>This is awesome</h1><p>Vite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.</p>"
 ```
 
 </details>
