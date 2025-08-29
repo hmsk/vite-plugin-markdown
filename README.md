@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/vite-plugin-markdown.svg?style=for-the-badge)](https://www.npmjs.com/package/vite-plugin-markdown) [![npm beta channel](https://img.shields.io/npm/v/vite-plugin-markdown/beta?style=for-the-badge&label=beta&color=yellow)](https://www.npmjs.com/package/vite-plugin-markdown/v/beta)
 
-
 A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project.
 
 ## Setup
@@ -17,17 +16,35 @@ npm i -D vite-plugin-markdown
 ```
 npm i -D vite-plugin-markdown@vite-1
 ```
+
 </details>
 
 ### Config
 
 ```js
-import mdPlugin from 'vite-plugin-markdown'
+import mdPlugin from "vite-plugin-markdown";
 
 module.exports = {
-  plugins: [mdPlugin(options)]
-}
+  plugins: [mdPlugin(options)],
+};
 ```
+
+<details>
+<summary>If you get the 'mdPlugin is not a function error'</summary>
+
+Sometimes npm exports the entry function as a named and not default export.
+
+in your config:
+
+```js
+import { plugin as mdPlugin } from 'vite-plugin-markdown';
+
+  plugins: [
+    mdPlugin(options),
+  ],
+```
+
+</details>
 
 Then you can import front matter attributes from `.md` file as default.
 
@@ -47,9 +64,9 @@ Vite is an opinionated web dev build tool that serves your code via native ES Mo
 ```
 
 ```ts
-import { attributes } from './contents/the-doc.md';
+import { attributes } from "./contents/the-doc.md";
 
-console.log(attributes) //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
+console.log(attributes); //=> { title: 'Awesome Title', description: 'Describe this awesome content', tags: ['great', 'awesome', 'rad'] }
 ```
 
 ### Options
@@ -63,13 +80,13 @@ markdownIt?: MarkdownIt | MarkdownIt.Options
 Enum for `mode` is provided as `Mode`
 
 ```ts
-import { Mode } from 'vite-plugin-markdown'
+import { Mode } from "vite-plugin-markdown";
 
-console.log(Mode.HTML) //=> 'html'
-console.log(Mode.MARKDOWN) //=> 'markdown'
-console.log(Mode.TOC) //=> 'toc'
-console.log(Mode.REACT) //=> 'react'
-console.log(Mode.VUE) //=> 'vue'
+console.log(Mode.HTML); //=> 'html'
+console.log(Mode.MARKDOWN); //=> 'markdown'
+console.log(Mode.TOC); //=> 'toc'
+console.log(Mode.REACT); //=> 'react'
+console.log(Mode.VUE); //=> 'vue'
 ```
 
 "Mode" enables you to import markdown file in various formats (HTML, ToC, React/Vue Component)
@@ -86,9 +103,9 @@ Vite is an opinionated web dev build tool that serves your code via native ES Mo
 ```
 
 ```ts
-import { html } from './contents/the-doc.md';
+import { html } from "./contents/the-doc.md";
 
-console.log(html) //=> "<h1>This is awesome</h1><p>ite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.</p>"
+console.log(html); //=> "<h1>This is awesome</h1><p>ite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production.</p>"
 ```
 
 </details>
@@ -99,10 +116,11 @@ console.log(html) //=> "<h1>This is awesome</h1><p>ite is an opinionated web dev
   <summary>Import the raw Markdown content</summary>
 
 ```js
-import { markdown } from './contents/the-doc.md'
+import { markdown } from "./contents/the-doc.md";
 
-console.log(markdown) //=> "# This is awesome \n Vite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production."
+console.log(markdown); //=> "# This is awesome \n Vite is an opinionated web dev build tool that serves your code via native ES Module imports during dev and bundles it with Rollup for production."
 ```
+
 </details>
 
 #### `Mode.TOC`
@@ -123,9 +141,9 @@ Vite is an opinionated web dev build tool that serves your code via native ES Mo
 ```
 
 ```ts
-import { toc } from './contents/the-doc.md'
+import { toc } from "./contents/the-doc.md";
 
-console.log(toc) //=> [{ level: '1', content: 'vite' }, { level: '2', content: 'Status' }, { level: '2', content: 'Getting Started' }, { level: '1', content: 'Notes' },]
+console.log(toc); //=> [{ level: '1', content: 'vite' }, { level: '2', content: 'Status' }, { level: '2', content: 'Getting Started' }, { level: '1', content: 'Notes' },]
 ```
 
 </details>
@@ -187,12 +205,12 @@ function MyReactApp() {
 </template>
 
 <script>
-import { VueComponent } from './contents/the-doc.md'
+import { VueComponent } from "./contents/the-doc.md";
 
 export default {
   components: {
-    MarkdownContent: VueComponent
-  }
+    MarkdownContent: VueComponent,
+  },
 };
 </script>
 ```
@@ -214,13 +232,13 @@ Vite is <MyComponent :type="'vue'">
 </template>
 
 <script>
-import { VueComponentWith } from './contents/the-doc.md'
-import MyComponent from './my-component.vue'
+import { VueComponentWith } from "./contents/the-doc.md";
+import MyComponent from "./my-component.vue";
 
 export default {
   components: {
-    MarkdownContent: VueComponentWith({ MyComponent })
-  }
+    MarkdownContent: VueComponentWith({ MyComponent }),
+  },
 };
 </script>
 ```
@@ -230,36 +248,44 @@ export default {
 </details>
 </details>
 
-
 ### Type declarations
 
 In TypeScript project, need to declare typedefs for `.md` file as you need.
 
 ```ts
-declare module '*.md' {
+declare module "*.md" {
   // "unknown" would be more detailed depends on how you structure frontmatter
-  const attributes: Record<string, unknown>; 
+  const attributes: Record<string, unknown>;
 
   // When "Mode.TOC" is requested
-  const toc: { level: string, content: string }[];
+  const toc: { level: string; content: string }[];
 
   // When "Mode.HTML" is requested
   const html: string;
 
   // When "Mode.RAW" is requested
-  const raw: string
+  const raw: string;
 
   // When "Mode.React" is requested. VFC could take a generic like React.VFC<{ MyComponent: TypeOfMyComponent }>
-  import React from 'react'
+  import React from "react";
   const ReactComponent: React.VFC;
-  
+
   // When "Mode.Vue" is requested
-  import { ComponentOptions, Component } from 'vue';
+  import { ComponentOptions, Component } from "vue";
   const VueComponent: ComponentOptions;
-  const VueComponentWith: (components: Record<string, Component>) => ComponentOptions;
+  const VueComponentWith: (
+    components: Record<string, Component>,
+  ) => ComponentOptions;
 
   // Modify below per your usage
-  export { attributes, toc, html, ReactComponent, VueComponent, VueComponentWith };
+  export {
+    attributes,
+    toc,
+    html,
+    ReactComponent,
+    VueComponent,
+    VueComponentWith,
+  };
 }
 ```
 
